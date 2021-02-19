@@ -23,5 +23,29 @@ public class Rooms {
         this.floor = floor;
         this.number = number;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }
 

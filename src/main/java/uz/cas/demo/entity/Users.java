@@ -1,11 +1,17 @@
 package uz.cas.demo.entity;
 
-import org.hibernate.annotations.GeneratorType;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import uz.cas.demo.entity.enums.Category;
+import uz.cas.demo.entity.enums.RoleName;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Users {
+public class Users implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,13 +26,22 @@ public class Users {
 
     private String speciality;
 
+    @Column(unique = true)
+    private String username;
+
+    private String password;
+
     @Enumerated(EnumType.STRING)
     private Category category;
 
     @ManyToOne
     private Rooms rooms;
-    @Enumerated(EnumType.STRING)
-    private RoleName roleName;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private Set<Role> roles = new HashSet<>();
 
     public Users() {
     }
@@ -38,7 +53,9 @@ public class Users {
                  String speciality,
                  Category category,
                  Rooms rooms,
-                 RoleName roleName) {
+                 String username,
+                 String password,
+                 Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -46,7 +63,9 @@ public class Users {
         this.speciality = speciality;
         this.category = category;
         this.rooms = rooms;
-        this.roleName = roleName;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
     }
 
     public Integer getId() {
@@ -85,6 +104,10 @@ public class Users {
         return price;
     }
 
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     public void setPrice(String price) {
         this.price = price;
     }
@@ -113,11 +136,49 @@ public class Users {
         this.rooms = rooms;
     }
 
-    public RoleName getRoleName() {
-        return roleName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setRoleName(RoleName roleName) {
-        this.roleName = roleName;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

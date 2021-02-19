@@ -1,39 +1,23 @@
-package uz.cas.demo.entity;
+package uz.cas.demo.peyload;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.UUID;
+public class ReqPatient {
 
-@Entity
-public class Patient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String  firstName;
+    private String firstName;
 
     private String lastName;
 
     private String phone;
 
-    public Patient() {
+    private Integer doctorId;
+
+    public ReqPatient() {
     }
 
-    public Patient(String firstName, String lastName, String phone) {
+    public ReqPatient(String firstName, String lastName, String phone, Integer doctorId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.doctorId = doctorId;
     }
 
     public String getFirstName() {
@@ -58,5 +42,13 @@ public class Patient {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Integer getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Integer doctorId) {
+        this.doctorId = doctorId;
     }
 }
