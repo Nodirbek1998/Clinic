@@ -13,11 +13,11 @@ public class ReqPatient {
     public ReqPatient() {
     }
 
-    public ReqPatient(String firstName, String lastName, String phone, Integer doctorId) {
+    public ReqPatient(String firstName, String lastName, String phone, String doctorId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
-        this.doctorId = doctorId;
+        this.doctorId = Integer.valueOf(doctorId);
     }
 
     public String getFirstName() {
