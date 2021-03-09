@@ -22,7 +22,6 @@ public class PatientController {
 
     @PostMapping
     public HttpEntity<?> addPatient(@RequestBody ReqPatient reqPatient){
-        System.out.println(reqPatient.getFirstName()+ reqPatient.getLastName()+ reqPatient.getPhone());
         ResponseEntity<?> responseEntity = patientService.addPatient(reqPatient);
         return ResponseEntity.ok(responseEntity);
     }

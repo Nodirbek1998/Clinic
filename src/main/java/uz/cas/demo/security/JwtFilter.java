@@ -23,19 +23,26 @@ public class JwtFilter extends OncePerRequestFilter {
     JwtProvider jwtProvider;
     @Autowired
     UsersService usersService;
+    private Users getUsers;
+
+    public Users getGetUsers() {
+        return getUsers;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         try{
-            String token = httpServletRequest.getHeader("Authorization");
+           String token = httpServletRequest.getHeader("Authorization");
             if (token != null) {
                 if (jwtProvider.isValidToken(token)) {
                     String username = jwtProvider.getUserNameFromToken(token);
-                    Users users = usersService.loadUserByUsername(username);
+
+                   getUsers = usersService.loadUserByUsername(username);
+
                     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                            users,
+                            getUsers,
                             null,
-                            users.getAuthorities()
+                            getUsers.getAuthorities()
                     );
                     authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);

@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import uz.cas.demo.entity.Role;
 import uz.cas.demo.entity.Users;
+import uz.cas.demo.entity.enums.RoleName;
 import uz.cas.demo.exception.UsernameException;
 import uz.cas.demo.peyload.ReqLogin;
 import uz.cas.demo.peyload.ReqUsers;
@@ -20,6 +22,7 @@ import uz.cas.demo.repository.RoomsRepository;
 import uz.cas.demo.repository.UsersRepository;
 import uz.cas.demo.security.JwtProvider;
 
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,7 +43,7 @@ public class UsersService implements UserDetailsService {
 
     @Override
     public Users loadUserByUsername(String username) throws UsernameNotFoundException {
-        return  usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username is not found"));
+        return  usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username dis not found"));
     }
 
     public ResponseEntity<?> saveUser(ReqUsers reqUsers){
@@ -86,7 +89,17 @@ public class UsersService implements UserDetailsService {
 
             return ResponseEntity.status(HttpStatus.OK).body(jwtProvider.generateToken(authentication));
         }
-        throw new UsernameException("Username not found!");
+//        throw new UsernameException("Username not found!");
+        return ResponseEntity.ok("username not found");
+    }
+
+    public ResponseEntity<?> getAllDoctors(){
+        List<Users> all = usersRepository.findAll();
+        return ResponseEntity.ok(all);
+    }
+    public ResponseEntity<?> getDoctor(Integer id) {
+        Optional<Users> byId = usersRepository.findById(id);
+        return ResponseEntity.ok(byId.get());
     }
 
 }

@@ -16,15 +16,13 @@ public class JwtProvider {
     public String generateToken(Authentication authentication) {
         Users user=(Users) authentication.getPrincipal();
         Date now=new Date(System.currentTimeMillis());
+        Date expireDate=new Date(now.getTime()+3*24*60*60*1000);  // 1 days
 
-        Date expireDate=new Date(now.getTime()+24*60*60*1000);  // 3 days
-        String userId= String.valueOf(user.getId());
         Map<String,Object> claims=new HashMap<>();
-        claims.put("id",userId);
-        claims.put("username",user.getUsername());
         claims.put("role",user.getRoles());
+        claims.put("username",user.getUsername());
         return Jwts.builder()
-                .setSubject(userId)
+                .setSubject(user.getUsername())
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expireDate)
@@ -44,11 +42,11 @@ public class JwtProvider {
     }
 
     public String getUserNameFromToken(String token) {
-        return Jwts.parser()
+        Claims username = Jwts.parser()
                 .setSigningKey(JwtKey)
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
+        return String.valueOf(username.get("username"));
     }
 
 
