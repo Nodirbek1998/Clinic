@@ -89,8 +89,7 @@ public class UsersService implements UserDetailsService {
 
             return ResponseEntity.status(HttpStatus.OK).body(jwtProvider.generateToken(authentication));
         }
-//        throw new UsernameException("Username not found!");
-        return ResponseEntity.ok("username not found");
+        throw new UsernameException("Username not found!");
     }
 
     public ResponseEntity<?> getAllDoctors(){

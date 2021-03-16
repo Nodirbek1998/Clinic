@@ -34,4 +34,12 @@ public class QueueService {
         }
         return ResponseEntity.ok(queues);
     }
+    
+    public ResponseEntity<?> paid(Long id){
+        Optional<Queue> byId = queueRepository.findById(id);
+        Queue queue = byId.get();
+        queue.setStatus(true);
+        queueRepository.save(queue);
+        return ResponseEntity.ok(true);
+    }
 }

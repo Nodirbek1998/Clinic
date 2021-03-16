@@ -21,6 +21,8 @@ public class Queue extends AbsEntity {
 
     private boolean accepted;
 
+    private boolean status;
+
 
     public Queue() {
     }
@@ -70,5 +72,13 @@ public class Queue extends AbsEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

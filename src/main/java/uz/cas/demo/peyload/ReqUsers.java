@@ -25,23 +25,7 @@ public class ReqUsers {
 
     private Integer rooms;
 
-    public ReqUsers() {
-    }
 
-    public ReqUsers(String firstName, String lastName,
-                    String middleName, String price,
-                    String speciality, String username,
-                    String password, Category category, Integer rooms) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.price = price;
-        this.speciality = speciality;
-        this.username = username;
-        this.password = password;
-        this.category = category;
-        this.rooms = rooms;
-    }
 
     public String getFirstName() {
         return firstName;
