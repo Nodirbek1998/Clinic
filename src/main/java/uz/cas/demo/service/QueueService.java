@@ -42,4 +42,13 @@ public class QueueService {
         queueRepository.save(queue);
         return ResponseEntity.ok(true);
     }
+    public void deleteQueue(Long id){
+        queueRepository.deleteById(id);
+    }
+    public void addQueue(Long id){
+        Optional<Queue> byId = queueRepository.findById(id);
+        Queue queue = byId.get();
+        queue.setStatus(true);
+        queueRepository.save(queue);
+    }
 }

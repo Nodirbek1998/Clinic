@@ -9,8 +9,14 @@ import uz.cas.demo.repository.QueueRepository;
 public class CronJobs {
     @Autowired
     private QueueRepository queueRepository;
+
     @Scheduled(cron = "0 1 1 * * *")
-    public void deleteAllQueue(){
+    public void deleteAllQueue() {
         queueRepository.deleteAll();
     }
+
+//    @Scheduled(fixedDelay = 1000, initialDelay = 2000)
+//    private void delete(){
+//        System.out.println("hey!!");
+//    }
 }

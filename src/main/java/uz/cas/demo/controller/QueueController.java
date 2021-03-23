@@ -25,4 +25,14 @@ public class QueueController {
         queueService.paid(id);
         return ResponseEntity.ok(true);
     }
+    @GetMapping("/delete/{id}")
+    public HttpEntity<?> deleteQueue(@PathVariable Long id){
+        queueService.deleteQueue(id);
+        return ResponseEntity.ok(true);
+    }
+    @GetMapping("/addQueue/{id}")
+    public HttpEntity<?> addQueue(@PathVariable Long id){
+        queueService.addQueue(id);
+        return ResponseEntity.ok(true);
+    }
 }

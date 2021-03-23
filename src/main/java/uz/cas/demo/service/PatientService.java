@@ -6,12 +6,11 @@ import org.springframework.stereotype.Service;
 import uz.cas.demo.entity.Patient;
 import uz.cas.demo.entity.Queue;
 import uz.cas.demo.entity.Users;
-import uz.cas.demo.peyload.ReqPatient;
+import uz.cas.demo.payload.ReqPatient;
 import uz.cas.demo.repository.PatientRepository;
 import uz.cas.demo.repository.QueueRepository;
 import uz.cas.demo.repository.UsersRepository;
 
-import javax.swing.text.DateFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;

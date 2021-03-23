@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import uz.cas.demo.peyload.ReqLogin;
-import uz.cas.demo.peyload.ReqUsers;
+import uz.cas.demo.payload.ReqLogin;
+import uz.cas.demo.payload.ReqUsers;
 import uz.cas.demo.service.UsersService;
 
 @Controller
