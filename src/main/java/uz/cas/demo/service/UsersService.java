@@ -11,15 +11,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import uz.cas.demo.entity.Attachment;
 import uz.cas.demo.entity.Users;
 import uz.cas.demo.exception.UsernameException;
 import uz.cas.demo.payload.ReqLogin;
 import uz.cas.demo.payload.ReqUsers;
+import uz.cas.demo.repository.AttachmentRepository;
 import uz.cas.demo.repository.RoleRepository;
 import uz.cas.demo.repository.RoomsRepository;
 import uz.cas.demo.repository.UsersRepository;
 import uz.cas.demo.security.JwtProvider;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,6 +43,8 @@ public class UsersService implements UserDetailsService {
     @Autowired
     JwtProvider jwtProvider;
     @Autowired
+    AttachmentRepository attachmentRepository;
+    @Autowired
     RoomsRepository roomsRepository;
 
     @Override
@@ -44,7 +52,7 @@ public class UsersService implements UserDetailsService {
         return  usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username dis not found"));
     }
 
-    public ResponseEntity<?> saveUser(ReqUsers reqUsers){
+    public ResponseEntity<?> saveUser(ReqUsers reqUsers) throws IOException {
         boolean byUsername = usersRepository.existsByUsername(reqUsers.getUsername());
         if (!byUsername){
             Users users = new Users();
@@ -57,6 +65,7 @@ public class UsersService implements UserDetailsService {
             users.setCategory(reqUsers.getCategory());
             users.setSpeciality(reqUsers.getSpeciality());
             users.setPrice(reqUsers.getPrice());
+            users.setAttachment(attachmentRepository.findById(reqUsers.getAttachmentId()).get());
             users.setRoles(roleRepository.findAll().stream().filter(role ->
                     role.getRoleName().name().equals("doctor")).collect(Collectors.toSet()));
             usersRepository.save(users);

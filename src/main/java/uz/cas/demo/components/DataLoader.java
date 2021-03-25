@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import uz.cas.demo.entity.Attachment;
 import uz.cas.demo.entity.Role;
 import uz.cas.demo.entity.Rooms;
 import uz.cas.demo.entity.Users;

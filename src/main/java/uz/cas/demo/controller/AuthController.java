@@ -12,6 +12,8 @@ import uz.cas.demo.payload.ReqLogin;
 import uz.cas.demo.payload.ReqUsers;
 import uz.cas.demo.service.UsersService;
 
+import java.io.IOException;
+
 @Controller
 @CrossOrigin("*")
 @RequestMapping("/api/auth")
@@ -21,7 +23,7 @@ public class AuthController {
     UsersService usersService;
 
     @PostMapping("register")
-    public HttpEntity<?> register(@RequestBody ReqUsers reqUsers){
+    public HttpEntity<?> register(@RequestBody ReqUsers reqUsers) throws IOException {
         ResponseEntity<?> responseEntity = usersService.saveUser(reqUsers);
         return ResponseEntity.ok(responseEntity);
     }

@@ -37,6 +37,11 @@ public class Users implements UserDetails {
     @ManyToOne
     private Rooms rooms;
 
+    @OneToOne
+    private Attachment attachment;
+
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id")},
@@ -46,6 +51,29 @@ public class Users implements UserDetails {
     public Users() {
     }
 
+    public Users(String firstName,
+                 String lastName,
+                 String middleName,
+                 String price,
+                 String speciality,
+                 Category category,
+                 Rooms rooms,
+                 String username,
+                 String password,
+                 Attachment attachment,
+                 Set<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.price = price;
+        this.speciality = speciality;
+        this.category = category;
+        this.rooms = rooms;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+        this.attachment = attachment;
+    }
     public Users(String firstName,
                  String lastName,
                  String middleName,
@@ -144,6 +172,14 @@ public class Users implements UserDetails {
         this.password = password;
     }
 
+    public Attachment getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -153,6 +189,7 @@ public class Users implements UserDetails {
     public String getPassword() {
         return password;
     }
+
 
     @Override
     public String getUsername() {

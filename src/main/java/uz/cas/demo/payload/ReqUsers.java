@@ -22,6 +22,8 @@ public class ReqUsers {
     private Category category;
 
     private Integer rooms;
+    private Long attachmentId;
+
 
 
 
@@ -95,5 +97,13 @@ public class ReqUsers {
 
     public void setRooms(Integer rooms) {
         this.rooms = rooms;
+    }
+
+    public Long getAttachmentId() {
+        return attachmentId;
+    }
+
+    public void setAttachmentId(Long attachmentId) {
+        this.attachmentId = attachmentId;
     }
 }
