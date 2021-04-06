@@ -57,6 +57,19 @@ public class DataLoader implements CommandLineRunner {
                     roles.stream().filter(role -> role.getRoleName().name()
                             .equals("admin")).collect(Collectors.toSet())
             ));
+            userRepository.save(new Users(
+                    "doctor",
+                    "doctor",
+                    "doctor",
+                    "100000",
+                    "lor",
+                    Category.B,
+                    rooms,
+                    "jalol",
+                    passwordEncoder.encode("1234"),
+                    roles.stream().filter(role -> role.getRoleName().name()
+                            .equals("admin")).collect(Collectors.toSet())
+            ));
         }
 
     }
