@@ -96,7 +96,10 @@ public class UsersService implements UserDetailsService {
             Users users = loadUserByUsername(reqLogin.getUsername());
             Map<String, Object> token = new HashMap<>();
             token.put("token",jwtProvider.generateToken(authentication));
-            token.put("attachmentId",users.getAttachment().getId());
+            if (users.getAttachment().getId() != null){
+                token.put("attachmentId",users.getAttachment().getId());
+            }
+
             return ResponseEntity.status(HttpStatus.OK).body(token);
         }
         throw new UsernameException("Username not found!");
