@@ -94,9 +94,10 @@ public class UsersService implements UserDetailsService {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             Users users = loadUserByUsername(reqLogin.getUsername());
+            Attachment id = users.getAttachment();
             Map<String, Object> token = new HashMap<>();
             token.put("token",jwtProvider.generateToken(authentication));
-            if (users.getAttachment().getId() != null){
+            if (users.getAttachment() != null){
                 token.put("attachmentId",users.getAttachment().getId());
             }
 
